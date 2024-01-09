@@ -15,9 +15,9 @@ __pg0001__:
 ````
 docker run --name pg0001 -t \
 -e DB_SERVER_HOST="pg0001" \
--e POSTGRES_USER="Sentinel" \
--e POSTGRES_PASSWORD="Sentinel" \
--e POSTGRES_DB="SentinelDataSuite" \
+-e POSTGRES_USER="postgres" \
+-e POSTGRES_PASSWORD="postgres" \
+-e POSTGRES_DB="postgres" \
 --network=airflow_default \
 -p 5433:5433 \
 -v pgbackrest_pg0001:/var/lib/postgresql/data \
@@ -28,9 +28,9 @@ __pg0002__:
 ````
 docker run --name pg0002 -t \
 -e DB_SERVER_HOST="pg0002" \
--e POSTGRES_USER="Sentinel" \
--e POSTGRES_PASSWORD="Sentinel" \
--e POSTGRES_DB="SentinelDataSuite" \
+-e POSTGRES_USER="postgres" \
+-e POSTGRES_PASSWORD="postgres" \
+-e POSTGRES_DB="postgres" \
 --network=airflow_default \
 -p 5434:5434 \
 -v pgbackrest_pg0002:/var/lib/postgresql/data \

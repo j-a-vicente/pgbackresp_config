@@ -32,10 +32,39 @@ docker run --name pg0002 -t \
 -e POSTGRES_PASSWORD="Sentinel" \
 -e POSTGRES_DB="SentinelDataSuite" \
 --network=airflow_default \
--p 5433:5433 \
+-p 5434:5434 \
 -v pgbackrest_pg0002:/var/lib/postgresql/data \
 -v pgbackrest_backup:/var/lib/postgresql/backup \
 postgres:15.5
+````
+
+
+[Instalação do pgbackrest:](https://pgbackrest.org/user-guide.html#async-archiving)
+````
+mkdir -p /build
+wget -q -O - \
+       https://github.com/pgbackrest/pgbackrest/archive/release/2.49.tar.gz | \
+       tar zx -C /build
+
+sudo apt-get install make gcc libpq-dev libssl-dev libxml2-dev pkg-config \
+       liblz4-dev libzstd-dev libbz2-dev libz-dev libyaml-dev libssh2-1-dev
+
+cd /build/pgbackrest-release-2.49/src && ./configure && make
+
+sudo apt-get install postgresql-client libxml2 libssh2-1
+
+sudo scp build:/build/pgbackrest-release-2.49/src/pgbackrest /usr/bin
+
+sudo chmod 755 /usr/bin/pgbackrest
+sudo mkdir -p -m 770 /var/log/pgbackrest
+sudo chown postgres:postgres /var/log/pgbackrest
+sudo mkdir -p /etc/pgbackrest
+sudo mkdir -p /etc/pgbackrest/conf.d
+sudo touch /etc/pgbackrest/pgbackrest.conf
+sudo chmod 640 /etc/pgbackrest/pgbackrest.conf
+sudo chown postgres:postgres /etc/pgbackrest/pgbackrest.conf
+
+sudo -u postgres pgbackrest
 ````
 
 

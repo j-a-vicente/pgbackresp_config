@@ -1,7 +1,7 @@
 # Configurando pgbackrest em dois servidores em docker.
 
 O projeto será configura e executar backup no servidor __pg0001__ e restaura a instância no __pg0002__, as duas instância de banco estaram rodando no docker.
-
+ 
 
 Criando os volumes:
 ````
